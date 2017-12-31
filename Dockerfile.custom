@@ -15,7 +15,6 @@ ENV PORT=8080
 
 # ENTRYPOINT ["npm", "start"]
 
-
 CMD \
 	gcloud app deploy 
  
