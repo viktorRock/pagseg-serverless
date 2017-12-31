@@ -6,8 +6,6 @@
 
 FROM gcr.io/google_appengine/nodejs
 
-
-
 CMD \
 	gcloud beta functions deploy  pagseg-checkout \
   --source https://source.developers.google.com/projects/payment-services/repos/pagsseg_checkout/moveable-aliases/master/paths/ \
