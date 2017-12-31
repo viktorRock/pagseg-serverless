@@ -1,15 +1,43 @@
+'use strict';
 
-function getPagSeg(requestBody){ 
-  console.log('log 1');
-  console.log(requestBody);
-  var output = {
-    msg : "return"
-  }
-  return output;
-}
+const Buffer = require('safe-buffer').Buffer;
 
+// [START functions_helloworld_debug]
+require('@google-cloud/debug-agent').start();
+// [END functions_helloworld_debug]
 
+// [START functions_helloworld]
+/**
+ * Cloud Function.
+ *
+ * @param {object} event The Cloud Functions event.
+ * @param {function} callback The callback function.
+ */
+exports.helloWorld = function helloWorld (event, callback) {
+  console.log(`My Cloud Function: ${event.data.message}`);
+  callback();
+};
+// [END functions_helloworld]
 
-module.exports = {
-  getPagSeg : getPagSeg
+// [START functions_helloworld_get]
+/**
+ * HTTP Cloud Function.
+ *
+ * @param {Object} req Cloud Function request context.
+ * @param {Object} res Cloud Function response context.
+ */
+exports.helloGET = function helloGET (req, res) {
+  res.send('Hello World!');
+};
+// [END functions_helloworld_get]
+
+// [START functions_helloworld_http]
+/**
+ * HTTP Cloud Function.
+ *
+ * @param {Object} req Cloud Function request context.
+ * @param {Object} res Cloud Function response context.
+ */
+exports.helloHttp = function helloHttp (req, res) {
+  res.send(`Hello ${req.body.name || 'World'}!`);
 };
