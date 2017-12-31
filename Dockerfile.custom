@@ -13,9 +13,9 @@ RUN npm install
 
 ENV PORT=8080
 
-# ENTRYPOINT ["npm", "start"]
-
 CMD \
-	gcloud app deploy 
+	gcloud beta functions deploy  pagseg-checkout \
+  --source https://source.developers.google.com/projects/payment-services/repos/pagsseg_checkout/moveable-aliases/master/paths/ \
+  --trigger-http
  
 
