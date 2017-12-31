@@ -38,6 +38,6 @@ exports.helloGET = function helloGET (req, res) {
  * @param {Object} req Cloud Function request context.
  * @param {Object} res Cloud Function response context.
  */
-exports.helloHttp = function helloHttp (req, res) {
+exports.getPagSeg = function getPagSeg (req, res) {
   res.send(`Hello ${req.body.name || 'World'}!`);
 };
