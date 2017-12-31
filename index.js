@@ -27,7 +27,7 @@ exports.helloWorld = function helloWorld (event, callback) {
  * @param {Object} res Cloud Function response context.
  */
 exports.helloGET = function helloGET (req, res) {
-  res.send('oi World!');
+  res.send('oi sumido');
 };
 // [END functions_helloworld_get]
 
