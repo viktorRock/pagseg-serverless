@@ -1,5 +1,4 @@
 
-
 function getPagSeg(requestBody){ 
   console.log('log 1');
   console.log(requestBody);
