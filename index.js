@@ -39,5 +39,5 @@ exports.helloGET = function helloGET (req, res) {
  * @param {Object} res Cloud Function response context.
  */
 exports.getPagSeg = function getPagSeg (req, res) {
-  res.send(`Ola ${req.body.name || 'World'}!`);
+  res.send(`Ola ${req.body.name ||  'World'}!`);
 };
