@@ -1,5 +1,6 @@
 'use strict';
 
+
 const Buffer = require('safe-buffer').Buffer;
 
 // [START functions_helloworld_debug]
