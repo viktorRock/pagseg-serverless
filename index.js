@@ -27,3 +27,14 @@ exports.helloWorld = function helloWorld (event, callback) {
 exports.getPagSeg = function getPagSeg (req, res) {
   res.send(`Ola ${req.body.name ||  'World'}!`);
 };
+
+/**
+ * HTTP Cloud Function.
+ *
+ * @param {Object} req Cloud Function request context.
+ * @param {Object} res Cloud Function response context.
+ */
+exports.getPagSeg = function getCheckout (req, res) {
+  res.send(`#Congrats ! :) -> ${req.body.name ||  'World'}!`);
+};
+
