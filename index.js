@@ -46,7 +46,7 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 		method: 'POST',
 		headers: { 'Authorization' : auth },
 		url: chargeEndpoint,
-		form: formdata
+		form: req.body
 	}
 
 	if(oneClickPayValidation(req)){
@@ -64,12 +64,24 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 
 function oneClickPayValidation(req){
   // checking and preparing Iugu API parameters
-  if (isNull(req.body.payment_method_id) || isNull(req.body.description) || isNull(req.body.price) || isNull(req.body.quantity) || isNull(req.body.email)) {
+  if (isNull(req.body.payment_method_id) || isNull(req.body.email) || validateItems(req.body.items)) {
   	return false;
   }
-  return true;
+
+}
+return true;
 }
 
 function isNull(variable) {
 	return variable == null
+}
+
+function validateItems(items){
+	if(!items){
+		return false
+	}
+	else if (isNull(items.description) || isNull(items.price) || isNull(items.quantity)) {
+		return false;
+	}
+	return true;
 }
