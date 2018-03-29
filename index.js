@@ -67,18 +67,16 @@ function oneClickPayValidation(req){
   if (isNull(req.body.payment_method_id) || isNull(req.body.email) || validateItems(req.body.items)) {
   	return false;
   }
-
-}
-return true;
+  return true;
 }
 
 function isNull(variable) {
-	return variable == null
+	return variable == null;
 }
 
 function validateItems(items){
 	if(!items){
-		return false
+		return false;
 	}
 	else if (isNull(items.description) || isNull(items.price) || isNull(items.quantity)) {
 		return false;
