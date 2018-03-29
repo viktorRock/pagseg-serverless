@@ -2,6 +2,10 @@
 
 const Buffer = require('safe-buffer').Buffer;
 var request = require('request');
+// Preparing auth header
+const API_TOKEN = "d8b71b55b1aa3acf2e07bc17d1a3759a"
+const auth = "Basic " + new Buffer(API_TOKEN + ":").toString("base64")
+const chargeEndpoint = 'https://api.iugu.com/v1/charge'
 
 // [START functions_helloworld_debug]
 require('@google-cloud/debug-agent').start();
@@ -38,6 +42,13 @@ exports.getPagSeg = function getPagSeg (req, res) {
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	console.log('gcloud functions  iuguCheckoutGET');
 	console.log(req.body);
+	var options = { 
+		method: 'POST',
+		headers: { 'Authorization' : auth },
+		url: chargeEndpoint,
+		form: formdata
+	}
+
 	if(oneClickPayValidation(req)){
 		res.send('Good work pal ! :) ');
 	}else{
@@ -53,7 +64,7 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 
 function oneClickPayValidation(req){
   // checking and preparing Iugu API parameters
-  if (isNull(req.body.cpayment_method_id) || isNull(req.body.cdescription) || isNull(req.body.cprice) || isNull(req.body.cquantity) || isNull(req.body.email)) {
+  if (isNull(req.body.payment_method_id) || isNull(req.body.description) || isNull(req.body.price) || isNull(req.body.quantity) || isNull(req.body.email)) {
   	return false;
   }
   return true;
