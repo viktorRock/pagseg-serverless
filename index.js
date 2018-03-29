@@ -37,7 +37,7 @@ exports.getPagSeg = function getPagSeg (req, res) {
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	console.log('gcloud functions  iuguCheckoutGET');
-
+	console.log(req);
 	if(oneClickPayValidation(req)){
 		res.send('Good work pal ! :) ');
 	}else{
