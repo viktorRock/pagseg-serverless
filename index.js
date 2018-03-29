@@ -36,7 +36,7 @@ exports.getPagSeg = function getPagSeg (req, res) {
 * @param {Object} res Cloud Function response context.
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
-	console.log('My Cloud Function:  iuguCheckoutGET');
+	console.log('gcloud functions  iuguCheckoutGET');
 
 	if(oneClickPayValidation(req)){
 		res.send('Good work pal ! :) ');
@@ -52,7 +52,6 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 
 
 function oneClickPayValidation(req){
-
   // checking and preparing Iugu API parameters
   if (isNull(req.cpayment_method_id) || isNull(req.cdescription) || isNull(req.cprice) || isNull(req.cquantity) || isNull(req.email)) {
   	return false;
@@ -61,5 +60,5 @@ function oneClickPayValidation(req){
 }
 
 function isNull(variable) {
-  return variable == null
+	return variable == null
 }
