@@ -1,6 +1,7 @@
 'use strict';
 
 const Buffer = require('safe-buffer').Buffer;
+var request = require('request');
 
 // [START functions_helloworld_debug]
 require('@google-cloud/debug-agent').start();
@@ -35,6 +36,7 @@ exports.getPagSeg = function getPagSeg (req, res) {
  * @param {Object} res Cloud Function response context.
  */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
+	console.log('My Cloud Function:  iuguCheckoutGET');
   res.send(`#Congrats ! :) -> ${req.body.name ||  'World'}!`);
 };
 
