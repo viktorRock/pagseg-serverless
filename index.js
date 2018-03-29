@@ -45,7 +45,7 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 		res.body = {
 			'message': 'Please pass a payment method id, a description, a price, a quantity and an email in the request body'
 		}
-		res.send();
+		res.send('error 400');
 	}
 };
 
