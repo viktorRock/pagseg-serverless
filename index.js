@@ -41,6 +41,10 @@ exports.getPagSeg = function getPagSeg (req, res) {
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	console.log('gcloud functions  iuguCheckoutGET');
+	res.send(JSON.stringify(iuguCheckout(req, res)));
+};
+
+function iuguCheckout(req, res){
 	var options = { 
 		method: 'POST',
 		headers: { 'Authorization' : auth },
@@ -49,17 +53,16 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	}
 
 	if(oneClickPayValidation(req.body)){
-		res.send(JSON.stringify(makeRequest(options, res);));
+		return makeRequest(options, res);
 	}else{
 		res.status = 400
 		res.body = {
 			'message': 'Please pass a payment method id, a description, a price, a quantity and an email in the request body'
 		}
-		res.send(JSON.stringify(res.body));
+		return res.body;
 	}
-};
 
-
+}
 
 function oneClickPayValidation(body){
   // checking and preparing Iugu API parameters
