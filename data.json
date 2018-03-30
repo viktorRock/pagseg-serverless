@@ -4,6 +4,6 @@
   "items": {
     "description": "teste",
     "price_cents": "999.99",
-    "quantity": 1
+    "quantity": "1"
   }
 }

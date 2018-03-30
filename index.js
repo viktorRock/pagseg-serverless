@@ -63,7 +63,7 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 
 function oneClickPayValidation(body){
   // checking and preparing Iugu API parameters
-  if (isNull(body.customer_payment_method_id) || isNull(body.email) || validateItems(body.items)) {
+  if (isNull(body.customer_payment_method_id) || isNull(body.email) || !validateItems(body.items)) {
   	console.log(body);
   	console.log("error on oneClickPayValidation");
   	return false;
