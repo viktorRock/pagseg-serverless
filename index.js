@@ -49,7 +49,7 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 		form: req.body
 	}
 
-	if(oneClickPayValidation(req)){
+	if(oneClickPayValidation(req.body)){
 		res.send(makeRequest(options));
 	}else{
 		res.status = 400
@@ -62,9 +62,10 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 
 
 
-function oneClickPayValidation(req){
+function oneClickPayValidation(body){
   // checking and preparing Iugu API parameters
-  if (isNull(req.body.customer_payment_method_id) || isNull(req.body.email) || validateItems(req.body.items)) {
+  if (isNull(body.customer_payment_method_id) || isNull(body.email) || validateItems(body.items)) {
+  	console.log("error on oneClickPayValidation");
   	return false;
   }
   return true;
@@ -76,9 +77,11 @@ function isNull(variable) {
 
 function validateItems(items){
 	if(!items){
+		console.log("No items found");
 		return false;
 	}
 	else if (isNull(items.description) || isNull(items.price_cents) || isNull(items.quantity)) {
+		console.log("items elements error");
 		return false;
 	}
 	return true;
@@ -92,7 +95,7 @@ function makeRequest(options){
 	  	if (error) throw new Error(error)
 
 	  		var csuccess = getParam(JSON.parse(body), 'success')
-	  	
+
 	  	if (csuccess != true) {
 	  		res.status = 500
 	  		res.body = {
@@ -110,6 +113,6 @@ function makeRequest(options){
 	  		context.done(null, res)
 	  		return res
 	  	}
-	  	
+
 	  })
 	}

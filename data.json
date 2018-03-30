@@ -1,12 +1,9 @@
-{"checkout": {
-    "currency": "BRL",
-    "items": {
-    	"item": {
-    		"id":  "01",
-    		"description": "testID",
-    		"amount": "10.50",
-    		"quantity": 1
-    	}
-    }
+{
+  "customer_payment_method_id": "1234",
+  "email": "pvmathiassilva@gmail.com",
+  "items": {
+    "description": "teste",
+    "price_cents": "999.99",
+    "quantity": 1
   }
 }
