@@ -49,7 +49,9 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	}
 
 	if(oneClickPayValidation(req.body)){
-		res.send(JSON.stringify(makeRequest(options)));
+		res = makeRequest(options);
+		console.log('sending response');
+		res.send(JSON.stringify(res.body));
 	}else{
 		res.status = 400
 		res.body = {
