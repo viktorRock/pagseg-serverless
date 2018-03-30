@@ -95,10 +95,11 @@ function makeRequest(options, res){
 	  request(options, function (error, response, body) {
 	  	console.log('makeRequest body: ' + body)
 
-	  	if (error) console.log(error);
+	  	if (error) console.log("Error ! = error");
 
 	  	let bodyParams = JSON.parse(body);
 	  	if(!bodyParams) {
+	  		console.log("#### NOT A JSON ");
 	  		res.status = 500
 	  		res.body = {
 	  			message: 'Received response in a incorrect format, expected JSON',
@@ -109,6 +110,7 @@ function makeRequest(options, res){
 	  	var csuccess = bodyParams.success;
 
 	  	if (csuccess != true) {
+	  		console.log("not sucess !!! ");
 	  		res.status = 500
 	  		res.body = {
 	  			message: 'Iugu response received, but contains errors',
@@ -116,6 +118,7 @@ function makeRequest(options, res){
 	  		}
 	  		return res.body;
 	  	} else {
+	  		console.log("#### Sucess !!! ");
 	  		res.status = 200
 	  		res.body = {
 	  			message: 'Iugu response received',
@@ -125,4 +128,8 @@ function makeRequest(options, res){
 	  	}
 
 	  })
+	}
+
+	function parseResponse(){
+
 	}
