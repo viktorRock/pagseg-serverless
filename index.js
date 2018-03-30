@@ -49,7 +49,7 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	}
 
 	if(oneClickPayValidation(req.body)){
-		res = makeRequest(options);
+		 makeRequest(options, res);
 		console.log('sending response');
 		res.send(JSON.stringify(res.body));
 	}else{
@@ -89,7 +89,7 @@ function validateItems(items){
 	return true;
 }
 
-function makeRequest(options){
+function makeRequest(options, res){
 	  // performing Iugu API request
 	  console.log('makeRequest options: ' + options)
 	  request(options, function (error, response, body) {
