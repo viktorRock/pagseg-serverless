@@ -55,7 +55,7 @@ function iuguCheckout(req, res){
 	if(oneClickPayValidation(req.body)){
 		return makeRequest(options, res);
 	}else{
-		res.status = 400
+		res.status = 400;
 		res.body = {
 			'message': 'Please pass a payment method id, a description, a price, a quantity and an email in the request body'
 		}
@@ -98,7 +98,15 @@ function makeRequest(options, res){
 
 	  	if (error) console.log(error);
 
-	  	var csuccess = getParam(JSON.parse(body), 'success')
+	  	let bodyParams = JSON.parse(body);
+	  	if(!bodyParams) {
+	  		res.body = {
+	  			message: 'Received response in a incorrect format, expected JSON',
+	  			iuguresponse: body,
+	  		}
+	  		return res.body;
+	  	}
+	  	var csuccess = bodyParams.success;
 
 	  	if (csuccess != true) {
 	  		res.status = 500
@@ -106,14 +114,14 @@ function makeRequest(options, res){
 	  			message: 'Iugu response received, but contains errors',
 	  			iuguresponse: body,
 	  		}
-	  		return res.body
+	  		return res.body;
 	  	} else {
 	  		res.status = 200
 	  		res.body = {
 	  			message: 'Iugu response received',
 	  			iuguresponse: body,
 	  		}
-	  		return res.body
+	  		return res.body;
 	  	}
 
 	  })
