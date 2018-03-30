@@ -50,7 +50,7 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	}
 
 	if(oneClickPayValidation(req)){
-		res.send('Good work pal ! :) ');
+		res.send(makeRequest(options));
 	}else{
 		res.status = 400
 		res.body = {
@@ -64,7 +64,7 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 
 function oneClickPayValidation(req){
   // checking and preparing Iugu API parameters
-  if (isNull(req.body.payment_method_id) || isNull(req.body.email) || validateItems(req.body.items)) {
+  if (isNull(req.body.customer_payment_method_id) || isNull(req.body.email) || validateItems(req.body.items)) {
   	return false;
   }
   return true;
@@ -78,8 +78,38 @@ function validateItems(items){
 	if(!items){
 		return false;
 	}
-	else if (isNull(items.description) || isNull(items.price) || isNull(items.quantity)) {
+	else if (isNull(items.description) || isNull(items.price_cents) || isNull(items.quantity)) {
 		return false;
 	}
 	return true;
 }
+
+function makeRequest(options){
+	  // performing Iugu API request
+	  request(options, function (error, response, body) {
+	  	context.log('body: ' + body)
+
+	  	if (error) throw new Error(error)
+
+	  		var csuccess = getParam(JSON.parse(body), 'success')
+	  	
+	  	if (csuccess != true) {
+	  		res.status = 500
+	  		res.body = {
+	  			message: 'Iugu response received, but contains errors',
+	  			iuguresponse: body,
+	  		}
+	  		context.done(null, res)
+	  		return res
+	  	} else {
+	  		res.status = 200
+	  		res.body = {
+	  			message: 'Iugu response received',
+	  			iuguresponse: body,
+	  		}
+	  		context.done(null, res)
+	  		return res
+	  	}
+	  	
+	  })
+	}
