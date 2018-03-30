@@ -90,7 +90,7 @@ function validateItems(items){
 function makeRequest(options){
 	  // performing Iugu API request
 	  request(options, function (error, response, body) {
-	  	context.log('body: ' + body)
+	  	context.log('makeRequest body: ' + body)
 
 	  	if (error) throw new Error(error)
 
