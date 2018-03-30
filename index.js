@@ -89,9 +89,9 @@ function validateItems(items){
 
 function makeRequest(options){
 	  // performing Iugu API request
-	  context.log('makeRequest options: ' + options)
+	  console.log('makeRequest options: ' + options)
 	  request(options, function (error, response, body) {
-	  	context.log('makeRequest body: ' + body)
+	  	console.log('makeRequest body: ' + body)
 
 	  	if (error) throw new Error(error)
 
@@ -103,7 +103,6 @@ function makeRequest(options){
 	  			message: 'Iugu response received, but contains errors',
 	  			iuguresponse: body,
 	  		}
-	  		context.done(null, res)
 	  		return res
 	  	} else {
 	  		res.status = 200
@@ -111,7 +110,6 @@ function makeRequest(options){
 	  			message: 'Iugu response received',
 	  			iuguresponse: body,
 	  		}
-	  		context.done(null, res)
 	  		return res
 	  	}
 
