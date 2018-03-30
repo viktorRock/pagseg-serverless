@@ -40,7 +40,6 @@ exports.getPagSeg = function getPagSeg (req, res) {
 * @param {Object} res Cloud Function response context.
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
-	console.log('gcloud functions  iuguCheckoutGET');
 	res.send(JSON.stringify(iuguCheckout(req, res)));
 };
 
@@ -100,6 +99,7 @@ function makeRequest(options, res){
 
 	  	let bodyParams = JSON.parse(body);
 	  	if(!bodyParams) {
+	  		res.status = 500
 	  		res.body = {
 	  			message: 'Received response in a incorrect format, expected JSON',
 	  			iuguresponse: body,
