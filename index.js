@@ -49,9 +49,7 @@ exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	}
 
 	if(oneClickPayValidation(req.body)){
-		 makeRequest(options, res);
-		console.log('sending response');
-		res.send(JSON.stringify(res.body));
+		res.send(JSON.stringify(makeRequest(options, res);));
 	}else{
 		res.status = 400
 		res.body = {
@@ -95,9 +93,9 @@ function makeRequest(options, res){
 	  request(options, function (error, response, body) {
 	  	console.log('makeRequest body: ' + body)
 
-	  	if (error) throw new Error(error)
+	  	if (error) console.log(error);
 
-	  		var csuccess = getParam(JSON.parse(body), 'success')
+	  	var csuccess = getParam(JSON.parse(body), 'success')
 
 	  	if (csuccess != true) {
 	  		res.status = 500
@@ -105,14 +103,14 @@ function makeRequest(options, res){
 	  			message: 'Iugu response received, but contains errors',
 	  			iuguresponse: body,
 	  		}
-	  		return res
+	  		return res.body
 	  	} else {
 	  		res.status = 200
 	  		res.body = {
 	  			message: 'Iugu response received',
 	  			iuguresponse: body,
 	  		}
-	  		return res
+	  		return res.body
 	  	}
 
 	  })
