@@ -95,7 +95,7 @@ function validateItems(items){
 }
 
 function makeRequest(options, res){
-	var ret = {};
+	var result = {};
 	console.log('makeRequest options: ' + options)
 	request(options, function (error, response, body) {
 		console.log('makeRequest body: ' + body)
@@ -105,38 +105,34 @@ function makeRequest(options, res){
 		let bodyParams = JSON.parse(body);
 		if(!bodyParams) {
 			console.log("#### NOT A JSON ");
-			ret.status = 500
-			ret.body = {
+			result.status = 500
+			result.body = {
 				message: 'Received response in a incorrect format, expected JSON',
 				iuguresponse: body,
 			}
-			return ret;
+			return result;
 		}
 		var csuccess = bodyParams.success;
 
 		if (csuccess != true) {
 			console.log("not sucess !!! ");
-			ret.status = 500
-			ret.body = {
+			result.status = 500
+			result.body = {
 				message: 'Iugu response received, but contains errors',
 				iuguresponse: body,
 			}
 
-			return ret;  // res.status(500).send(JSON.stringify(res.body));
+			return result;  // res.status(500).send(JSON.stringify(res.body));
 
 		} else {
 			console.log("#### Sucess !!! ");
-			ret.status = 200
-			ret.body = {
+			result.status = 200
+			result.body = {
 				message: 'Iugu response received',
 				iuguresponse: body,
 			}
-			return ret;
+			return result;
 		}
 
 	})
-}
-
-function parseResponse(){
-
 }
