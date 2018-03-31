@@ -40,8 +40,8 @@ exports.getPagSeg = function getPagSeg (req, res) {
 * @param {Object} res Cloud Function response context.
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
-	// iuguCheckout(req, res);
-	res.status(403).send('Forbidden!');
+	iuguCheckout(req, res);
+	// res.status(403).send('Forbidden!');
 };
 
 function iuguCheckout(req, res){
@@ -63,7 +63,7 @@ function iuguCheckout(req, res){
 		// return JSON.stringify(res.body);
 		res
 		.status(400)
-		.end(JSON.stringify(res.body));
+		.send(JSON.stringify(res.body));
 	}
 
 }
@@ -110,10 +110,7 @@ function makeRequest(options, res){
 	  			message: 'Received response in a incorrect format, expected JSON',
 	  			iuguresponse: body,
 	  		}
-	  		res
-	  		.status(500)
-	  		.end(JSON.stringify(res.body));
-	  		// return res.body;
+	  		res.status(500).send(JSON.stringify(res.body));
 	  	}
 	  	var csuccess = bodyParams.success;
 
@@ -124,10 +121,8 @@ function makeRequest(options, res){
 	  			message: 'Iugu response received, but contains errors',
 	  			iuguresponse: body,
 	  		}
-	  		res
-	  		.status(500)
-	  		.end(JSON.stringify(res.body));
-	  		// return res.body;
+	  		res.status(500).send(JSON.stringify(res.body));
+
 	  	} else {
 	  		console.log("#### Sucess !!! ");
 	  		res.status = 200
@@ -135,10 +130,7 @@ function makeRequest(options, res){
 	  			message: 'Iugu response received',
 	  			iuguresponse: body,
 	  		}
-	  		res
-	  		.status(200)
-	  		.end(JSON.stringify(res.body));
-	  		// return res.body;
+	  		res.status(200).send(JSON.stringify(res.body));
 	  	}
 
 	  })
