@@ -41,7 +41,7 @@ exports.getPagSeg = function getPagSeg (req, res) {
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	// var response = iuguCheckout(req, res);
-	res.send(iuguCheckout(req, res));
+	res.send(JSON.stringify(iuguCheckout(req, res)));
 	// res.status(response.status).send(JSON.stringify(response.body));
 	// res.status(403).send('Forbidden!');
 };
@@ -64,7 +64,7 @@ function iuguCheckout(req, res){
 			'message': 'Its required a payment method id, a description, a price, a quantity and an email in the request body'
 		}
 		// return JSON.stringify(res.body);
-		return res;
+		return res.body;
 	}
 
 }
