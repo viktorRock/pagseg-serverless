@@ -40,7 +40,7 @@ exports.getPagSeg = function getPagSeg (req, res) {
 * @param {Object} res Cloud Function response context.
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
-	res.send(iuguCheckout(req, res));
+	iuguCheckout(req, res);
 };
 
 function iuguCheckout(req, res){
@@ -52,13 +52,17 @@ function iuguCheckout(req, res){
 	}
 
 	if(oneClickPayValidation(req.body)){
-		return JSON.stringify(makeRequest(options, res));
+		// return JSON.stringify(makeRequest(options, res));
+		makeRequest(options, res);
 	}else{
 		res.status = 400;
 		res.body = {
 			'message': 'Please pass a payment method id, a description, a price, a quantity and an email in the request body'
 		}
-		return JSON.stringify(res.body);
+		// return JSON.stringify(res.body);
+		res
+		.status(400)
+		.end(JSON.stringify(res.body));
 	}
 
 }
@@ -105,7 +109,10 @@ function makeRequest(options, res){
 	  			message: 'Received response in a incorrect format, expected JSON',
 	  			iuguresponse: body,
 	  		}
-	  		return res.body;
+	  		res
+	  		.status(500)
+	  		.end(JSON.stringify(res.body));
+	  		// return res.body;
 	  	}
 	  	var csuccess = bodyParams.success;
 
@@ -116,7 +123,10 @@ function makeRequest(options, res){
 	  			message: 'Iugu response received, but contains errors',
 	  			iuguresponse: body,
 	  		}
-	  		return res.body;
+	  		res
+	  		.status(500)
+	  		.end(JSON.stringify(res.body));
+	  		// return res.body;
 	  	} else {
 	  		console.log("#### Sucess !!! ");
 	  		res.status = 200
@@ -124,7 +134,10 @@ function makeRequest(options, res){
 	  			message: 'Iugu response received',
 	  			iuguresponse: body,
 	  		}
-	  		return res.body;
+	  		res
+	  		.status(200)
+	  		.end(JSON.stringify(res.body));
+	  		// return res.body;
 	  	}
 
 	  })
