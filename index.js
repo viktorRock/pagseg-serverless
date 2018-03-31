@@ -60,7 +60,7 @@ function iuguCheckout(req, res){
 	}else{
 		res.status(400);
 		res.body = {
-			'message': 'Its required a payment method id, a description, a price, a quantity and an email in the request body'
+			'message': 'Its needed a payment method id, a description, a price, a quantity and an email in the request body'
 		}
 		// return JSON.stringify(res.body);
 		return res.body;
