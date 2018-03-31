@@ -53,7 +53,6 @@ function iuguCheckout(req, res){
 		url: chargeEndpoint,
 		form: req.body
 	}
-	var ret = {};
 
 	if(oneClickPayValidation(req.body)){
 		// return JSON.stringify(makeRequest(options, res));
@@ -96,7 +95,6 @@ function validateItems(items){
 }
 
 function makeRequest(options, res){
-	var result = {};
 	console.log('makeRequest options: ' + options)
 	request(options, function (error, response, body) {
 		console.log('makeRequest body: ' + body)
@@ -106,33 +104,33 @@ function makeRequest(options, res){
 		let bodyParams = JSON.parse(body);
 		if(!bodyParams) {
 			console.log("#### NOT A JSON ");
-			result.status = 500
-			result.body = {
+			res.status(500);
+			res.body = {
 				message: 'Received response in a incorrect format, expected JSON',
 				iuguresponse: body,
 			}
-			return result;
+			return res.body;
 		}
 		var csuccess = bodyParams.success;
 
 		if (csuccess != true) {
 			console.log("not sucess !!! ");
-			result.status = 500
-			result.body = {
+			res.status(500);
+			res.body = {
 				message: 'Iugu response received, but contains errors',
 				iuguresponse: body,
 			}
 
-			return result;  // res.status(500).send(JSON.stringify(res.body));
+			return res.body;
 
 		} else {
 			console.log("#### Sucess !!! ");
-			result.status = 200
-			result.body = {
+			res.status(200);
+			res.body = {
 				message: 'Iugu response received',
 				iuguresponse: body,
 			}
-			return result;
+			return res.body;
 		}
 
 	})
