@@ -40,8 +40,8 @@ exports.getPagSeg = function getPagSeg (req, res) {
 * @param {Object} res Cloud Function response context.
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
-	iuguCheckout(req, res);
-	// res.status(403).send('Forbidden!');
+	var response = iuguCheckout(req, res);
+	res.status(response.status).send(JSON.stringify(response.body));
 };
 
 function iuguCheckout(req, res){
@@ -51,19 +51,18 @@ function iuguCheckout(req, res){
 		url: chargeEndpoint,
 		form: req.body
 	}
+	var ret = {};
 
 	if(oneClickPayValidation(req.body)){
 		// return JSON.stringify(makeRequest(options, res));
-		makeRequest(options, res);
+		return makeRequest(options, res);
 	}else{
-		res.status = 400;
-		res.body = {
+		ret.status = 400;
+		ret.body = {
 			'message': 'Please pass a payment method id, a description, a price, a quantity and an email in the request body'
 		}
 		// return JSON.stringify(res.body);
-		res
-		.status(400)
-		.send(JSON.stringify(res.body));
+		return ret;
 	}
 
 }
