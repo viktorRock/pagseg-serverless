@@ -42,6 +42,7 @@ exports.getPagSeg = function getPagSeg (req, res) {
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	var response = iuguCheckout(req, res);
 	res.status(response.status).send(JSON.stringify(response.body));
+	// res.status(403).send('Forbidden!');
 };
 
 function iuguCheckout(req, res){
