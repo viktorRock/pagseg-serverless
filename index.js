@@ -95,48 +95,48 @@ function validateItems(items){
 }
 
 function makeRequest(options, res){
-	  // performing Iugu API request
-	  console.log('makeRequest options: ' + options)
-	  request(options, function (error, response, body) {
-	  	console.log('makeRequest body: ' + body)
+	var ret = {};
+	console.log('makeRequest options: ' + options)
+	request(options, function (error, response, body) {
+		console.log('makeRequest body: ' + body)
 
-	  	if (error) console.log("Error ! = error");
+		if (error) console.log("Error ! = error");
 
-	  	let bodyParams = JSON.parse(body);
-	  	if(!bodyParams) {
-	  		console.log("#### NOT A JSON ");
-	  		res.status = 500
-	  		res.body = {
-	  			message: 'Received response in a incorrect format, expected JSON',
-	  			iuguresponse: body,
-	  		}
-	  		res.status(500).send(JSON.stringify(res.body));
-	  	}
-	  	var csuccess = bodyParams.success;
+		let bodyParams = JSON.parse(body);
+		if(!bodyParams) {
+			console.log("#### NOT A JSON ");
+			ret.status = 500
+			ret.body = {
+				message: 'Received response in a incorrect format, expected JSON',
+				iuguresponse: body,
+			}
+			return ret;
+		}
+		var csuccess = bodyParams.success;
 
-	  	if (csuccess != true) {
-	  		console.log("not sucess !!! ");
-	  		res.status = 500
-	  		res.body = {
-	  			message: 'Iugu response received, but contains errors',
-	  			iuguresponse: body,
-	  		}
-	  		// res.status(500).send(JSON.stringify(res.body));
-	  		res.status(403).send('Forbidden! not sucess !!!');
+		if (csuccess != true) {
+			console.log("not sucess !!! ");
+			ret.status = 500
+			ret.body = {
+				message: 'Iugu response received, but contains errors',
+				iuguresponse: body,
+			}
 
-	  	} else {
-	  		console.log("#### Sucess !!! ");
-	  		res.status = 200
-	  		res.body = {
-	  			message: 'Iugu response received',
-	  			iuguresponse: body,
-	  		}
-	  		res.status(200).send(JSON.stringify(res.body));
-	  	}
+			return ret;  // res.status(500).send(JSON.stringify(res.body));
 
-	  })
-	}
+		} else {
+			console.log("#### Sucess !!! ");
+			ret.status = 200
+			ret.body = {
+				message: 'Iugu response received',
+				iuguresponse: body,
+			}
+			return ret;
+		}
 
-	function parseResponse(){
+	})
+}
 
-	}
+function parseResponse(){
+
+}
