@@ -40,7 +40,7 @@ exports.getPagSeg = function getPagSeg (req, res) {
 * @param {Object} res Cloud Function response context.
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
-	res.send(JSON.stringify(iuguCheckout(req, res)));
+	res.send(iuguCheckout(req, res));
 };
 
 function iuguCheckout(req, res){
@@ -52,13 +52,13 @@ function iuguCheckout(req, res){
 	}
 
 	if(oneClickPayValidation(req.body)){
-		return makeRequest(options, res);
+		return JSON.stringify(makeRequest(options, res));
 	}else{
 		res.status = 400;
 		res.body = {
 			'message': 'Please pass a payment method id, a description, a price, a quantity and an email in the request body'
 		}
-		return res.body;
+		return JSON.stringify(res.body);
 	}
 
 }
