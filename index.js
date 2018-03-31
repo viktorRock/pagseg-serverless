@@ -40,8 +40,9 @@ exports.getPagSeg = function getPagSeg (req, res) {
 * @param {Object} res Cloud Function response context.
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
-	var response = iuguCheckout(req, res);
-	res.status(response.status).send(JSON.stringify(response.body));
+	// var response = iuguCheckout(req, res);
+	res.send(iuguCheckout(req, res));
+	// res.status(response.status).send(JSON.stringify(response.body));
 	// res.status(403).send('Forbidden!');
 };
 
@@ -58,12 +59,12 @@ function iuguCheckout(req, res){
 		// return JSON.stringify(makeRequest(options, res));
 		return makeRequest(options, res);
 	}else{
-		ret.status = 400;
-		ret.body = {
+		res.status(400);
+		res.body = {
 			'message': 'Its required a payment method id, a description, a price, a quantity and an email in the request body'
 		}
 		// return JSON.stringify(res.body);
-		return ret;
+		return res;
 	}
 
 }
