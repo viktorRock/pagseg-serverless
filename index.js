@@ -2,6 +2,8 @@
 
 const Buffer = require('safe-buffer').Buffer;
 var request = require('request');
+var async = require('async');
+
 // Preparing auth header
 const API_TOKEN = "d8b71b55b1aa3acf2e07bc17d1a3759a"
 const auth = "Basic " + new Buffer(API_TOKEN + ":").toString("base64")
@@ -41,7 +43,7 @@ exports.getPagSeg = function getPagSeg (req, res) {
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	// var response = iuguCheckout(req, res);
-	res.send(JSON.stringify(iuguCheckout(req, res)));
+	res.send((iuguCheckout(req, res));
 	// res.status(response.status).send(JSON.stringify(response.body));
 	// res.status(403).send('Forbidden!');
 };
@@ -60,7 +62,7 @@ function iuguCheckout(req, res){
 	}else{
 		res.status(400);
 		res.body = {
-			'message': 'Its needed a payment method id, a description, a price, a quantity and an email in the request body'
+			'message': 'Its needed  a payment method id, a description, a price, a quantity and an email in the request body'
 		}
 		// return JSON.stringify(res.body);
 		return res.body;
@@ -95,7 +97,6 @@ function validateItems(items){
 }
 
 function makeRequest(options, res){
-	console.log('makeRequest options: ' + options)
 	request(options, function (error, response, body) {
 		console.log('makeRequest body: ' + body)
 
