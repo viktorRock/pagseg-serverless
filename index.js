@@ -43,7 +43,7 @@ exports.getPagSeg = function getPagSeg (req, res) {
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	// res.status(403).send('Forbidden!');
-	res.send(iuguCheckout(req, res));
+	iuguCheckout(req, res);
 };
 
 function iuguCheckout(req, res){
@@ -66,14 +66,15 @@ function oneClickPayValidation(body, res){
   if (isNull(body.customer_payment_method_id) || isNull(body.email) || !validateItems(body.items)) {
   	console.log(body);
   	console.log("error on oneClickPayValidation");
+  	res.status(400);
+  	res.body = {
+  		'message': 'Its needed  a payment method id, a description, a price, a quantity and an email in the request body',
+  		'type': 'error'
+  	}
+  	res.send(res.body);
   	return false;
   }
-  res.status(400);
-  res.body = {
-  	'message': 'Its needed  a payment method id, a description, a price, a quantity and an email in the request body',
-  	'type': 'error'
-  }
-  res.send(res.body);
+  
   return true;
 }
 
