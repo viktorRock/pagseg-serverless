@@ -105,8 +105,8 @@ function makeRequest(options, res){
 			console.log("#### NOT A JSON ");
 			res.status(500);
 			res.body = {
-				message: 'Received response in a incorrect format, expected JSON',
-				iuguresponse: body,
+				'message': 'Received response in a incorrect format, expected JSON',
+				'iuguresponse': body,
 			}
 			return res.body;
 		}
@@ -116,8 +116,8 @@ function makeRequest(options, res){
 			console.log("not sucess !!! ");
 			res.status(500);
 			res.body = {
-				message: 'Iugu response received, but contains errors',
-				iuguresponse: body,
+				'message': 'Iugu response received, but contains errors',
+				'iuguresponse': body,
 			}
 
 			return res.body;
