@@ -106,7 +106,7 @@ function makeRequest(options, res){
 			res.status(500);
 			res.body = {
 				'message': 'Received response in a incorrect format, expected JSON',
-				'iuguresponse': body,
+				// 'iuguresponse': body,
 			}
 			return res.body;
 		}
