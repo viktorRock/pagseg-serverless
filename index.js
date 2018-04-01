@@ -43,7 +43,7 @@ exports.getPagSeg = function getPagSeg (req, res) {
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	// res.status(403).send('Forbidden!');
-	iuguCheckout(req, res);
+	res.send(iuguCheckout(req, res));
 };
 
 function iuguCheckout(req, res){
@@ -57,24 +57,25 @@ function iuguCheckout(req, res){
 	if(oneClickPayValidation(req.body)){
 		// return JSON.stringify(makeRequest(options, res));
 		return makeRequest(options, res);
+	}else{
+		res.status(400);
+		res.body = {
+			'message': 'Its needed  a payment method id, a description, a price, a quantity and an email in the request body',
+			'type': 'error'
+		}
+		// return JSON.stringify(res.body);
+		return res.body;
 	}
 
 }
 
-function oneClickPayValidation(body, res){
+function oneClickPayValidation(body){
   // checking and preparing Iugu API parameters
   if (isNull(body.customer_payment_method_id) || isNull(body.email) || !validateItems(body.items)) {
   	console.log(body);
   	console.log("error on oneClickPayValidation");
-  	res.status(400);
-  	res.body = {
-  		'message': 'Its needed  a payment method id, a description, a price, a quantity and an email in the request body',
-  		'type': 'error'
-  	}
-  	res.send(res.body);
   	return false;
   }
-  
   return true;
 }
 
@@ -96,8 +97,6 @@ function validateItems(items){
 
 function makeRequest(options, res){
 	request(options, function (error, response, body) {
-		console.log('makeRequest body: ' + body)
-
 		if (error) console.log("Error ! = error");
 
 		let bodyParams = JSON.parse(body);
@@ -113,11 +112,12 @@ function makeRequest(options, res){
 		var csuccess = bodyParams.success;
 
 		if (csuccess != true) {
+			console.log('makeRequest body: ' + body)
 			console.log("not sucess !!! ");
 			res.status(500);
 			res.body = {
 				'message': 'Iugu response received, but contains errors',
-				'iuguresponse': body,
+				'iuguresponse': 'body',
 			}
 
 			return res.body;
@@ -126,8 +126,8 @@ function makeRequest(options, res){
 			console.log("#### Sucess !!! ");
 			res.status(200);
 			res.body = {
-				message: 'Iugu response received',
-				iuguresponse: body,
+				'message': 'Iugu response received',
+				'iuguresponse': body,
 			}
 			return res.body;
 		}
