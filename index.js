@@ -44,9 +44,7 @@ exports.getPagSeg = function getPagSeg (req, res) {
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	// res.status(403).send('Forbidden!');
 	iuguCheckout(req, res);
-};
 
-function iuguCheckout(req, res){
 	var options = { 
 		method: 'POST',
 		headers: { 'Authorization' : auth },
@@ -66,8 +64,7 @@ function iuguCheckout(req, res){
 		// return JSON.stringify(res.body);
 		res.send(res.body);
 	}
-
-}
+};
 
 function oneClickPayValidation(body){
   // checking and preparing Iugu API parameters
