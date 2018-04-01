@@ -42,10 +42,8 @@ exports.getPagSeg = function getPagSeg (req, res) {
 * @param {Object} res Cloud Function response context.
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
-	// var response = iuguCheckout(req, res);
-	res.send((iuguCheckout(req, res));
-	// res.status(response.status).send(JSON.stringify(response.body));
 	// res.status(403).send('Forbidden!');
+	res.send(iuguCheckout(req, res));
 };
 
 function iuguCheckout(req, res){
