@@ -43,7 +43,7 @@ exports.getPagSeg = function getPagSeg (req, res) {
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	// res.status(403).send('Forbidden!');
-	res.send(iuguCheckout(req, res));
+	iuguCheckout(req, res);
 };
 
 function iuguCheckout(req, res){
@@ -56,7 +56,7 @@ function iuguCheckout(req, res){
 
 	if(oneClickPayValidation(req.body)){
 		// return JSON.stringify(makeRequest(options, res));
-		return makeRequest(options, res);
+		res.send(makeRequest(options, res));
 	}else{
 		res.status(400);
 		res.body = {
@@ -64,7 +64,7 @@ function iuguCheckout(req, res){
 			'type': 'error'
 		}
 		// return JSON.stringify(res.body);
-		return res.body;
+		res.send(res.body);
 	}
 
 }
