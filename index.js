@@ -57,25 +57,23 @@ function iuguCheckout(req, res){
 	if(oneClickPayValidation(req.body)){
 		// return JSON.stringify(makeRequest(options, res));
 		return makeRequest(options, res);
-	}else{
-		res.status(400);
-		res.body = {
-			'message': 'Its needed  a payment method id, a description, a price, a quantity and an email in the request body',
-			'type': 'error'
-		}
-		// return JSON.stringify(res.body);
-		return res.body;
 	}
 
 }
 
-function oneClickPayValidation(body){
+function oneClickPayValidation(body, res){
   // checking and preparing Iugu API parameters
   if (isNull(body.customer_payment_method_id) || isNull(body.email) || !validateItems(body.items)) {
   	console.log(body);
   	console.log("error on oneClickPayValidation");
   	return false;
   }
+  res.status(400);
+  res.body = {
+  	'message': 'Its needed  a payment method id, a description, a price, a quantity and an email in the request body',
+  	'type': 'error'
+  }
+  res.send(res.body);
   return true;
 }
 
