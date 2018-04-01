@@ -43,8 +43,6 @@ exports.getPagSeg = function getPagSeg (req, res) {
 */
 exports.iuguCheckoutGET = function iuguCheckoutGET (req, res) {
 	// res.status(403).send('Forbidden!');
-	iuguCheckout(req, res);
-
 	var options = { 
 		method: 'POST',
 		headers: { 'Authorization' : auth },
